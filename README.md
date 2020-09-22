@@ -8,7 +8,8 @@ Similarly to CoViD-19, __CoViD-22 mainly spreads through a close contact between
 
 To control the epidemic, two strategies are considered: 
 
-i) people are requested to stay at home (containment); 
+i) people are requested to stay at home (containment)
+
 ii) individuals tested positive are isolated (testing-and-isolating). 
 
 Health authorities are requesting the scientific community working with agent-based simulation to provide insights about the relative efficiency of both strategies. For the __containment strategy__, two dimensions are especially scrutinized: __the effect of compliance__ with containment and __the duration__ of such measure.  For the testing-and-isolating strategy, a special attention will be given to __the number of individuals to be tested__ on a daily basis and whether or not __the presence of symptoms is considered in the selection of people to be tested__.
