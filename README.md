@@ -4,13 +4,16 @@ The model is based on an imaginary new version of the covid19 disease and has be
 
 ## Starting point description to model an imaginary version of Covid22
 
-Similarly to CoViD-19, CoViD-22 mainly spreads through a close contact between an infectious person and a susceptible person. As far as we know, in such a situation, the probability of contagion is around 10%.  As the virus does not immediately manifest itself in its host, infected individuals go through an incubation stage (5 days) before becoming infectious. Not all infectious persons show symptoms: 20% of them remain asymptomatic. The infectiousness does not appear to be related to the manifestation of symptoms. Diagnostic tests exist and are able to identify any infectious person (both symptomatic and asymptomatic). 45 days after becoming infectious, a person recovers and gets immune. 
+Similarly to CoViD-19, __CoViD-22 mainly spreads through a close contact between an infectious person and a susceptible person__. As far as we know, in such a situation, __the probability of contagion is around 10%__.  As the virus does not immediately manifest itself in its host, infected individuals go through an __incubation stage (5 days)__ before becoming infectious. Not all infectious persons show symptoms: __20% of them remain asymptomatic__. __The infectiousness__ does __not__ appear to be __related to the manifestation of symptoms__. __Diagnostic tests exist__ and are able to identify any infectious person (both symptomatic and asymptomatic). __45 days after becoming infectious, a person recovers and gets immune__. 
 
-To control the epidemic, two strategies are considered: i) people are requested to stay at home (containment); ii) individuals tested positive are isolated (testing-and-isolating). 
+To control the epidemic, two strategies are considered: 
 
-Health authorities are requesting the scientific community working with agent-based simulation to provide insights about the relative efficiency of both strategies. For the containment strategy, two dimensions are especially scrutinized: the effect of compliance with containment and the duration of such measure.  For the testing-and-isolating strategy, a special attention will be given to the number of individuals to be tested on a daily basis and whether or not the presence of symptoms is considered in the selection of people to be tested.
+i) people are requested to stay at home (containment); 
+ii) individuals tested positive are isolated (testing-and-isolating). 
 
-A first prototype model is expected to be released by the end of the coming week. To serve as a reference basis, a stylized situation of a district (see .xls file) is proposed. 100 inhabitants are introduced in an environment made of 30x30 places. Each inhabitant lives with the 3 other members of their family in a house. Each individual spends the day either in a working place or at school and the night at home.
+Health authorities are requesting the scientific community working with agent-based simulation to provide insights about the relative efficiency of both strategies. For the __containment strategy__, two dimensions are especially scrutinized: __the effect of compliance__ with containment and __the duration__ of such measure.  For the testing-and-isolating strategy, a special attention will be given to __the number of individuals to be tested__ on a daily basis and whether or not __the presence of symptoms is considered in the selection of people to be tested__.
+
+To serve as a reference basis, a stylized situation of a district is proposed. *100 inhabitants* are introduced in an *environment made of 30x30 places*. Each inhabitant lives with the *3 other members of their family in a house*. Each individual *spends the day* either in a *working place or at school* and *the night at home*.
 
 # Model description
  
