@@ -15,7 +15,7 @@ global {
 	float step <- #hour;
 
 	map<string,rgb> lucmap <- [""::#white,"H"::#grey,"I"::#yellow,"W"::#mediumorchid,"S"::#orange];
-	map<string,rgb> statemap <- ["susceptible"::#blue,"immune"::#green,"infected"::#red];
+	map<string,rgb> statemap <- ["susceptible"::#green,"immune"::#blue,"infected"::#red];
 	
 	int nb_agent <- 100;
 	
@@ -35,8 +35,11 @@ global {
 		int id;
 		loop while:not empty(remaining_people) {
 			list<people> a_family <- 4 among remaining_people;
-			remaining_people >>- a_family;
-			ask a_family {family <- a_family-self; familyID <- id;}
+			remaining_people <- remaining_people - a_family;
+			ask a_family {
+				family <- a_family-self; 
+				familyID <- id;
+			}
 			id <- id + 1;
 		}
 		
@@ -45,10 +48,9 @@ global {
 		list<landscape> available_homeplaces <- landscape where (each.luc="H");
 		list<landscape> available_workingplaces <- landscape where (each.luc="W");
 		list<landscape> available_schools <- landscape where (each.luc="S");
-		write sample(available_homeplaces);
+		
 		loop f over:families.values {
 			landscape the_home <- one_of(available_homeplaces);
-			write sample(the_home);
 			loop p over:f { 
 				p.home <- the_home; 
 				p.workplace <- (flip(proportion_of_working_agent) ? any(available_workingplaces) : any(available_schools));
@@ -74,7 +76,7 @@ species people {
 	landscape home;
 	landscape workplace;
 		
-	aspect default { draw circle(1); }
+	aspect default { draw circle(1) color: statemap[epidemiological_state] border: #black; }
 }
 
 grid landscape width:30 height:30 {
