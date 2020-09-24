@@ -221,6 +221,15 @@ experiment xp type:gui {
 			grid landscape lines:#black;
 			species people;
 		}
+		
+		display chart {
+			chart "evolution of the disease" {
+				data "num of susceptible people" color: statemap["susceptible"] value: people count (each.epidemiological_state = "susceptible"); 
+				data "num of incubating people" color: statemap["incubating"] value: people count (each.epidemiological_state = "incubating"); 
+				data "num of infectious people" color: statemap["infectious"] value: people count (each.epidemiological_state = "infectious"); 
+				data "num of immune people" color: statemap["immune"] value: people count (each.epidemiological_state = "immune"); 
+			}
+		}
 	}
 }
 
@@ -230,11 +239,24 @@ experiment comparison type:gui parent: xp{
 		create simulation with:[strategy::"testing & isolating"];
 	}
 	output {
-		layout horizontal([0::5000,vertical([1::5000,2::5000])::5000])parameters: false tabs:true editors: false consoles: false;
+		 layout horizontal([vertical([horizontal([0::5000,1::5000])::5000,horizontal([2::5000,3::5000])::5000])::6635,vertical([4::5000,5::5000])::3365]) parameters: false tabs:true editors: false consoles: false navigator: false;
 		display main {
 			grid landscape lines:#black;
 			species people;
 			
+			overlay position: { 5, 5 } size: { 400 #px, 60 #px } background: # black transparency: 0.5 border: #black rounded: true
+            {
+               draw strategy at: { 40#px,  45#px } color: # white font: font("SansSerif", 18, #bold);
+                
+            }
+		}
+		display chart {
+			chart "evolution of the disease" {
+				data "num of susceptible people" color: statemap["susceptible"] value: people count (each.epidemiological_state = "susceptible"); 
+				data "num of incubating people" color: statemap["incubating"] value: people count (each.epidemiological_state = "incubating"); 
+				data "num of infectious people" color: statemap["infectious"] value: people count (each.epidemiological_state = "infectious"); 
+				data "num of immune people" color: statemap["immune"] value: people count (each.epidemiological_state = "immune"); 
+			}
 			overlay position: { 5, 5 } size: { 400 #px, 60 #px } background: # black transparency: 0.5 border: #black rounded: true
             {
                draw strategy at: { 40#px,  45#px } color: # white font: font("SansSerif", 18, #bold);
