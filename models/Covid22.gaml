@@ -129,7 +129,16 @@ global {
 	 */
 	reflex end_of_simulation when: people none_matches 
 		(["incubating","infectious"] contains each.epidemiological_state) {
-		do pause;
+		bool ready_end <- true;
+		loop s over: Covid22_model {
+	 		if  not(s.people none_matches 
+		(["incubating","infectious"] contains each.epidemiological_state)) {
+	 			ready_end <- false;
+	 		} 
+	 	}
+	 	if ready_end {
+	 		do pause;
+	 	}
 	}
 
 }
