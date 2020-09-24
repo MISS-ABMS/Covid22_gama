@@ -230,10 +230,16 @@ experiment comparison type:gui parent: xp{
 		create simulation with:[strategy::"testing & isolating"];
 	}
 	output {
-		layout horizontal([0::5000,vertical([1::5000,2::5000])::5000]) tabs:true editors: false;
+		layout horizontal([0::5000,vertical([1::5000,2::5000])::5000])parameters: false tabs:true editors: false consoles: false;
 		display main {
 			grid landscape lines:#black;
 			species people;
+			
+			overlay position: { 5, 5 } size: { 400 #px, 60 #px } background: # black transparency: 0.5 border: #black rounded: true
+            {
+               draw strategy at: { 40#px,  45#px } color: # white font: font("SansSerif", 18, #bold);
+                
+            }
 		}
 	}
 }
