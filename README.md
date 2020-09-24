@@ -28,11 +28,9 @@ In the text : “Health authorities are requesting the scientific community work
  
 ## O::Entities State variables and scales
  
-probabilities of contagion , being symptomatic  / asymptomatic ? in the test-and-isolate, how is it decided who will be tested ? 
- 
 ### Person 
  
-State : Susceptible, Immune, Infected
+State : Susceptible, Immune, Incubating, Infectious
 Symptomatic : yes / no
 Family : list of persons
  
@@ -41,7 +39,8 @@ Current_location: agent (landscape, building)
 Home : landscape
 Working place (workplace or school) : building
  
-Date of infection :
+Date of infection : date
+Must lock down : true / false
  
 ### Grid
 Grid 30x30
@@ -52,22 +51,33 @@ Type: school (S) / workingplace (W)
  
  
 ### Global 
- 
-Strategy : confinement / test-and-isolate
+Strategy : confinement or testing and isolating
 
 ### Scales
 time step: 1 hour
-simulation runs:
+simulation runs: as long as there is an 'incubating' or 'infectious' person
+
 ### State variables
  
 ## O::Process overview and scheduling
 
-Scales: 
+### Agent movement
 Going to work: when time is 8.00 go to workplace
 Going back work: when time is 17.00 go home
- 
-Transmission: flip according to probability when infected people are in the same building
- 
+
+### Disease transmission
+people become 'incubating' according to probability when infected people are in the same building
+
+### Strategies
+#### containment
+everybody has to be in lock down
+people compliance:
+
+#### testing and isolating
+* nb of test per day : 10 #days
+test only symptomatic or anybody (according to a prob)
+
+
 <Which processes are represented in the model, in which order are they processed, and who is processing them (observer, turtle, or patch). Please use NetLogo syntax to list the central schedule of your model, for example:
  
 to go
@@ -83,25 +93,26 @@ end
  
 ## DC::Initialization
  
+<Describe the setup procedure of your model/program, using NetLogo syntax. It is not necessary that you program already everything in detail, but just combine simple commands, which are clear anyway, like “ca”, and comment lines which explain, what the setup procedure will do, for example:
+ 
+## DC::Input
+
+### Global parameters
 100 persons grouped in families of 3 persons
 % of workers (vs school) = 0.5
 date: 2022-(current month)-(current day)
 proba_transmission: 0.1
 proba_asymptomatic: 0.2 
- 
-Patient 0: nb = 1
+incubation period: 5#days
+infectious period: 45#days
+
+### Patient 0
+nb = 1
 Randomly chosen among people
- 
-- do we limit working places capacity?
- 
-<Describe the setup procedure of your model/program, using NetLogo syntax. It is not necessary that you program already everything in detail, but just combine simple commands, which are clear anyway, like “ca”, and comment lines which explain, what the setup procedure will do, for example:
- 
-## DC::Input
- 
+
 <”Input” refers to environmental variables, that “drive” the dynamics of your model system (ecology: rainfall; economics: work market price; physiology: pH of blood) and that are not produced (calculated) by the model itself, but imported from an external model or file. This does not include static landscape (GIS), but might include dynamic landscapes. In the course, you probably will have no Input.>
  
-## DC::Submodels
- 
+## ~~DC::Submodels~~
 < Here you would, once your model and its analysis is finished, describe the submodels of your model, i.e. the procedures.>
 
 ## De::Emergence
