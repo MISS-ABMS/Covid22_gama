@@ -30,6 +30,8 @@ global {
 	float incubation_period <- 5#days;
 	float infectious_period <- 45#days;
 
+	float general_compliance_with_lockdown <- 0.6 parameter:true category:"containment";
+
 	init {
 		
 		matrix m <- matrix(ssc_spatialgrid0_csv_file);
@@ -89,7 +91,11 @@ global {
 		}
 		
 		// Locate people into homeplaces
-		ask people { location <- any_location_in(home); current_place <- home; }
+		ask people { 
+			location <- any_location_in(home); 
+			current_place <- home;
+			compliance_with_lockdown <- flip(general_compliance_with_lockdown) ? true : false;
+		}
 		
 		ask nb_infect_start among people { 
 			epidemiological_state <- "infectious"; 
@@ -101,8 +107,8 @@ global {
 	string strategy init:"none" parameter:true among:["containment","testing & isolating","none"];
 	
 	// TODO: compliance with the containment
-	date starting_strategy <- starting_date parameter:true category:"containment";
-	date end_strategy <- starting_date add_days 100 parameter:true category:"containment";
+	date starting_strategy <- starting_date; //parameter:true category:"containment";
+	date end_strategy <- starting_date add_days 100; //parameter:true category:"containment";
 	reflex containment_strategy when: strategy="containment" and
 		(current_date=starting_strategy or current_date=end_strategy) {
 		if current_date=starting_strategy {ask people {must_lockdown <- true;}}
@@ -160,6 +166,8 @@ species people {
 	date lockdown_date;
 	bool must_lockdown <- false;
 	
+	bool compliance_with_lockdown <- true;
+	
 	// To transmit the virus 
 	reflex transmission when: epidemiological_state="infectious" {
 		list<people> people_in_the_same_building <- people where 
@@ -186,18 +194,18 @@ species people {
 	}
 	
 	// Go to work or school
-	reflex going_to_worlplace when:current_date.hour = 8 and not(must_lockdown) {
+	reflex going_to_worlplace when:current_date.hour = 8 and (not(must_lockdown) or not(compliance_with_lockdown)) {
 		current_place <- workplace;
 		location <- any_location_in(workplace);
 	}
 		
 	// Get back home
-	reflex get_back_home when:current_date.hour = 17 and not(must_lockdown) {
+	reflex get_back_home when:current_date.hour = 17 {
 		current_place <- home;
 		location <- any_location_in(home);
 	}
 		
-	aspect default { draw circle(1) color: statemap[epidemiological_state] border: #black; }
+	aspect default { draw compliance_with_lockdown ? circle(1) : square(2) color: statemap[epidemiological_state] border: #black; }
 }
 
 species building {
